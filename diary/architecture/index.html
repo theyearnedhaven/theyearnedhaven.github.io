@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老钱风骨，新派灵魂｜百年庄园不玩虚的 | 向往的美好花园</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['"Inter"', '"Noto Serif SC"', 'system-ui', 'sans-serif'],
+                        'serif': ['"Noto Serif SC"', 'serif'],
+                    },
+                    colors: {
+                        'paper': '#f7f5f0',
+                        'sepia': '#9e8a7a',
+                        'sepia-light': '#c4b8ae',
+                        'ink': '#2a2a2a',
+                        'ink-light': '#6b6b6b',
+                        'garden': '#5a7c65',
+                        'garden-warm': '#8b7355',
+                        'earth': '#8b6f47',
+                        'earth-dark': '#6b5637',
+                        'wild': '#5c4a3a',
+                        'terracotta': '#c19a6b',
+                        'sage': '#a8b5a2',
+                        'taupe': '#b8a99a',
+                        'clay': '#aa7e5a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(168,181,162,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(193,154,107,0.06) 0%, transparent 50%),
+                #f7f5f0;
+            font-family: 'Inter', 'Noto Serif SC', sans-serif; 
+            color: #2a2a2a; 
+        }
+
+        .book-paper {
+            position: relative;
+            background-color: transparent;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.015) 0%, transparent 3%, transparent 97%, rgba(0,0,0,0.015) 100%);
+        }
+
+        .book-paper::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,20 Q40,10 60,20 T100,20' stroke='%239e8a7a' fill='none' stroke-width='0.3' opacity='0.1'/%3E%3Cpath d='M150,150 Q170,140 190,150' stroke='%235a7c65' fill='none' stroke-width='0.3' opacity='0.1'/%3E%3Ccircle cx='30' cy='180' r='5' fill='%23c19a6b' opacity='0.05'/%3E%3Ccircle cx='180' cy='30' r='8' fill='%23a8b5a2' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .container { 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            padding: 20px 20px 40px 20px; 
+            position: relative;
+            z-index: 2;
+        }
+        
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9e8a7a, #c19a6b, #a8b5a2);
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
+        
+        .back-home {
+            display: inline-block;
+            color: #9e8a7a;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .back-home:hover {
+            color: #6b5637;
+        }
+        .back-home:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease;
+        }
+        .back-home svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #9e8a7a;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #9e8a7a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .breadcrumb a:hover {
+            color: #8b7355;
+        }
+        .breadcrumb .separator {
+            margin: 0 6px;
+            color: #c4b8ae;
+        }
+        
+        .article-card {
+            display: flex;
+            gap: 30px;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+            margin: 0 auto 30px auto;
+            max-width: 1200px;
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 94%, 
+                98% 97%, 
+                95% 99%, 
+                90% 100%, 
+                10% 100%, 
+                5% 99%, 
+                2% 97%, 
+                0% 94%
+            );
+            transition: clip-path 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .article-card:hover {
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 92%, 
+                97% 96%, 
+                93% 99%, 
+                87% 100%, 
+                13% 100%, 
+                7% 99%, 
+                3% 96%, 
+                0% 92%
+            );
+        }
+
+        .article-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .article-card:hover::after {
+            left: 150%;
+        }
+
+        .card-image {
+            flex: 1.4;
+            max-width: 55%;
+            aspect-ratio: 4/3;
+            background-color: #f0ece3;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            position: relative;
+            z-index: 2;
+        }
+        .card-content {
+            flex: 0.9;
+            padding: 40px 30px 40px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 2;
+        }
+        @media (max-width: 768px) {
+            .article-card {
+                flex-direction: column;
+                gap: 0;
+            }
+            .card-image {
+                max-width: 100%;
+                aspect-ratio: 4/3;
+            }
+            .card-content {
+                padding: 30px 20px;
+            }
+        }
+        
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            overflow: hidden;
+        }
+        .slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .slide-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center center;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            will-change: transform;
+        }
+        .slide-image.active {
+            opacity: 1;
+        }
+        
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.7);
+            color: #333;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card-image:hover .slide-btn {
+            opacity: 1;
+        }
+        .slide-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .slide-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        .slide-btn.prev { left: 15px; }
+        .slide-btn.next { right: 15px; }
+        .slide-btn.disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .card-image:hover .slide-btn.disabled {
+            opacity: 0.2;
+        }
+        
+        .dots-container {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+        .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin: 0 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: #ffffff;
+            width: 8px;
+            height: 8px;
+            transform: scale(1.2);
+        }
+        
+        .tag-elegant {
+            border: 0.5px solid #c4b8ae;
+            color: #6b6b6b;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.8rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            width: fit-content;
+            background: rgba(168, 181, 162, 0.1);
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.2rem 0 1.5rem 0;
+        }
+        .tag-item {
+            background-color: rgba(168, 181, 162, 0.15);
+            color: #6b6b6b;
+            font-size: 0.75rem;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            letter-spacing: 0.02em;
+            border: 0.5px solid rgba(193, 154, 107, 0.2);
+        }
+        
+        .interaction-buttons {
+            display: flex;
+            gap: 2.5rem;
+            margin: 1.5rem 0 1.2rem 0;
+        }
+        .interaction-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #9e8a7a;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0;
+        }
+        .interaction-btn:hover {
+            color: #8b7355;
+        }
+        .interaction-btn:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease;
+        }
+        .interaction-btn svg {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+            transition: transform 0.3s;
+        }
+        .interaction-btn:hover svg {
+            transform: scale(1.15);
+        }
+        .interaction-btn.liked {
+            color: #8b7355;
+        }
+        
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 0;
+            border-top: 1px solid #eae3da;
+            border-bottom: 1px solid #eae3da;
+            margin-bottom: 10px;
+        }
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #e8e0d5;
+        }
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+            will-change: transform;
+        }
+        .author-name {
+            font-weight: 500;
+            color: #2a2a2a;
+            margin-bottom: 2px;
+        }
+        .author-badge {
+            font-size: 0.7rem;
+            color: #9e8a7a;
+        }
+        
+        .comment-section {
+            max-width: 1200px;
+            margin: 20px auto 0 auto;
+            background: #f9f7f4;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .comment-section.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        .comment-section:not(.hidden) {
+            max-height: 800px;
+            opacity: 1;
+            padding: 20px;
+        }
+        .comment-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 10px;
+        }
+        .comment-item {
+            border-bottom: 1px solid #eae3da;
+            padding: 12px 0;
+        }
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .comment-name {
+            font-weight: 500;
+            color: #2a2a2a;
+            font-size: 0.9rem;
+        }
+        .comment-time {
+            color: #9e8a7a;
+            font-size: 0.7rem;
+        }
+        .comment-content {
+            color: #4a4a4a;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .divider {
+            max-width: 1200px;
+            margin: 30px auto 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #c19a6b 20%, #a8b5a2 50%, #9e8a7a 80%, transparent 100%);
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="book-paper">
+    <!-- 阅读进度条 -->
+    <div id="reading-progress"></div>
+
+    <div class="container">
+        <!-- 返回首页 -->
+        <a href="/diary/index.html" class="back-home">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
+
+        <!-- 面包屑导航 -->
+        <div class="breadcrumb">
+            <a href="../../index.html">首页</a>
+            <span class="separator">/</span>
+            <a href="/diary/index.html">家园随记</a>
+            <span class="separator">/</span>
+            <a href="/diary/architecture/index.html?category=建筑随记">建筑随记</a>
+        </div>
+
+        <!-- 左图右文卡片 -->
+        <div class="article-card">
+            <!-- 左侧：图片轮播 -->
+            <div class="card-image">
+                <div class="slideshow-container">
+                    <div class="slides">
+                        <img src="/diary/images/architecture.jpg" alt="庄园建筑1" class="slide-image active">
+                        <img src="/diary/images/architecture.jpg" alt="庄园建筑2" class="slide-image">
+                        <img src="/diary/images/architecture.jpg" alt="庄园建筑3" class="slide-image">
+                    </div>
+                    <button class="slide-btn prev" id="prevBtn">❮</button>
+                    <button class="slide-btn next" id="nextBtn">❯</button>
+                    <div class="dots-container" id="dotsContainer"></div>
+                </div>
+            </div>
+            
+            <!-- 右侧：文字内容 -->
+            <div class="card-content">
+                <span class="tag-elegant">家园随记 · 建筑随记</span>
+                
+                <h1 class="font-serif text-2xl md:text-3xl text-ink mb-2 leading-relaxed break-words">
+                    老钱风骨，新派灵魂｜百年经典庄园
+                </h1>
+                
+                <div class="text-sm text-sepia mb-4">
+                    2026年2月15日 · 金陵
+                </div>
+                
+                <p class="text-base text-ink/80 font-light leading-relaxed mb-3">
+                    小型规划、民宿设计中的真实思考。
+                </p>
+                
+                <p class="text-sm text-ink-light font-light leading-relaxed mb-3">
+                    不追求表面奢华，而是让空间与时光对话。每一处细节都承载着历史的温度，每一道光影都诉说着岁月的故事。
+                </p>
+                
+                <p class="text-sm text-ink-light font-light leading-relaxed">
+                    百年庄园的改造，不是简单的翻新，而是让老建筑重新呼吸，让新与旧在空间中和谐共生。
+                </p>
+                
+                <div class="tag-list">
+                    <span class="tag-item">#建筑设计</span>
+                    <span class="tag-item">#庄园改造</span>
+                    <span class="tag-item">#老建筑新生</span>
+                    <span class="tag-item">#空间对话</span>
+                    <span class="tag-item">#时光印记</span>
+                    <span class="tag-item">#刘佳设计</span>
+                </div>
+                
+                <!-- 互动按钮 -->
+                <div class="interaction-buttons">
+                    <button onclick="likeArticle()" class="interaction-btn" id="likeBtn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                        <span id="likeCount">8</span>
+                    </button>
+                    
+                    <button onclick="toggleComments()" class="interaction-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span id="commentCount">2</span>
+                    </button>
+                    
+                    <button onclick="shareArticle()" class="interaction-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        <span>分享</span>
+                    </button>
+                </div>
+                
+                <!-- 作者信息 -->
+                <div class="author-info">
+                    <div class="author-avatar">
+                        <!-- 修改第229行附近的作者头像路径 -->
+                        <img src="/../images/avatar.jpg" alt="向往的美好花园">
+                    </div>
+                    <div>
+                        <div class="author-name">向往的美好花园</div>
+                        <div class="author-badge">心之所向的理想居所</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 留言区域 -->
+        <div id="commentSection" class="comment-section hidden">
+            <div class="comment-list" id="commentList">
+                <!-- 评论会动态加载 -->
+            </div>
+            <div class="border-t border-sepia/20 pt-4">
+                <textarea id="newComment" placeholder="写下你的留言..." class="w-full p-3 border border-sepia/20 rounded-sm bg-white" rows="2"></textarea>
+                <button onclick="addComment()" class="mt-3 px-5 py-2 bg-sepia text-paper text-sm rounded-sm hover:bg-sepia-light transition-colors">发送留言</button>
+            </div>
+        </div>
+
+        <!-- 分隔线 -->
+        <div class="divider"></div>
+    </div>
+
+    <script>
+        // 阅读进度条
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('reading-progress').style.width = scrolled + '%';
+        });
+
+        // 轮播功能
+        (function() {
+            const slides = document.querySelectorAll('.slide-image');
+            const dotsContainer = document.getElementById('dotsContainer');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let slideIndex = 1;
+            let timer;
+            
+            if (slides.length > 0) {
+                for (let i = 0; i < slides.length; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    dot.setAttribute('onclick', `currentSlide(${i+1})`);
+                    dotsContainer.appendChild(dot);
+                }
+                
+                const dots = document.querySelectorAll('.dot');
+                
+                function showSlide(n) {
+                    if (n < 1 || n > slides.length) return false;
+                    
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    
+                    slides[n-1].classList.add('active');
+                    dots[n-1].classList.add('active');
+                    slideIndex = n;
+                    
+                    if (slideIndex === 1) prevBtn.classList.add('disabled');
+                    else prevBtn.classList.remove('disabled');
+                    
+                    if (slideIndex === slides.length) nextBtn.classList.add('disabled');
+                    else nextBtn.classList.remove('disabled');
+                    
+                    return true;
+                }
+                
+                function nextSlide() {
+                    showSlide(slideIndex + 1);
+                }
+                
+                timer = setInterval(nextSlide, 5000);
+                
+                window.changeSlide = function(n) {
+                    let nextIndex = slideIndex + n;
+                    if (nextIndex < 1 || nextIndex > slides.length) return;
+                    clearInterval(timer);
+                    if (showSlide(nextIndex)) {
+                        timer = setInterval(nextSlide, 5000);
+                    }
+                };
+                
+                window.currentSlide = function(n) {
+                    if (n < 1 || n > slides.length) return;
+                    clearInterval(timer);
+                    if (showSlide(n)) {
+                        timer = setInterval(nextSlide, 5000);
+                    }
+                };
+                
+                prevBtn.addEventListener('click', function() { window.changeSlide(-1); });
+                nextBtn.addEventListener('click', function() { window.changeSlide(1); });
+                
+                showSlide(1);
+            }
+        })();
+
+        // 数据持久化
+        const articleId = 'architecture-1';
+        
+        function initData() {
+            const defaultData = {
+                likeCount: 8,
+                liked: false,
+                comments: [
+                    { name: '建筑师老李', content: '改造理念很棒！', time: '2026-02-16' },
+                    { name: '民宿主理人', content: '学习了，期待更多分享', time: '2026-02-15' }
+                ]
+            };
+            
+            const stored = localStorage.getItem('article_' + articleId);
+            if (!stored) {
+                localStorage.setItem('article_' + articleId, JSON.stringify(defaultData));
+                return defaultData;
+            }
+            return JSON.parse(stored);
+        }
+
+        let articleData = initData();
+
+        function updateDisplay() {
+            document.getElementById('likeCount').textContent = articleData.likeCount;
+            document.getElementById('commentCount').textContent = articleData.comments.length;
+            
+            if (articleData.liked) {
+                document.getElementById('likeBtn').classList.add('liked');
+            } else {
+                document.getElementById('likeBtn').classList.remove('liked');
+            }
+            
+            renderComments();
+        }
+
+        function renderComments() {
+            const list = document.getElementById('commentList');
+            if (!list) return;
+            
+            if (articleData.comments.length === 0) {
+                list.innerHTML = '<div class="text-center text-sepia py-4">还没有留言，来韶一个吧 🌱</div>';
+                return;
+            }
+            
+            list.innerHTML = articleData.comments.map(c => `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-name">${c.name}</span>
+                        <span class="comment-time">${c.time}</span>
+                    </div>
+                    <div class="comment-content">${c.content}</div>
+                </div>
+            `).join('');
+        }
+
+        function likeArticle() {
+            if (articleData.liked) {
+                alert('你已经点过赞了 🌱');
+                return;
+            }
+            
+            articleData.likeCount++;
+            articleData.liked = true;
+            localStorage.setItem('article_' + articleId, JSON.stringify(articleData));
+            updateDisplay();
+        }
+
+        function toggleComments() {
+            const section = document.getElementById('commentSection');
+            section.classList.toggle('hidden');
+        }
+
+        function addComment() {
+            const textarea = document.getElementById('newComment');
+            const content = textarea.value.trim();
+            if (!content) {
+                alert('请输入留言内容');
+                return;
+            }
+            
+            const names = ['花园访客', '同路人', '山野君', '自在如风', '听雨者'];
+            const randomName = names[Math.floor(Math.random() * names.length)] + Math.floor(Math.random() * 100);
+            
+            const newComment = {
+                name: randomName,
+                content: content,
+                time: new Date().toISOString().split('T')[0]
+            };
+            
+            articleData.comments.unshift(newComment);
+            localStorage.setItem('article_' + articleId, JSON.stringify(articleData));
+            
+            textarea.value = '';
+            updateDisplay();
+            
+            const section = document.getElementById('commentSection');
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+            }
+        }
+
+        function shareArticle() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('文章链接已复制，可以分享给朋友了 📋');
+            });
+        }
+
+        updateDisplay();
+
+        // 鼠标滚轮翻页
+        (function() {
+            const cardImage = document.querySelector('.card-image');
+            if (cardImage) {
+                cardImage.addEventListener('wheel', function(e) {
+                    e.preventDefault();
+                    if (e.deltaY > 0) {
+                        window.changeSlide(1);
+                    } else {
+                        window.changeSlide(-1);
+                    }
+                }, { passive: false });
+            }
+        })();
+
+        // 视差滚动
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    document.querySelectorAll('.slide-image, .author-avatar img').forEach(img => {
+                        const speed = 0.03;
+                        const yPos = -(scrolled * speed);
+                        img.style.transform = `translateY(${yPos}px)`;
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+    </script>
+</body>
+</html>

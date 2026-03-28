@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>向往的美好花园 | 心之所向的理想居所</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['"Inter"', '"Noto Serif SC"', 'system-ui', 'sans-serif'],
+                        'serif': ['"Noto Serif SC"', 'serif'],
+                    },
+                    colors: {
+                        'paper': '#f7f5f0',
+                        'sepia': '#9e8a7a',
+                        'sepia-light': '#c4b8ae',
+                        'ink': '#2a2a2a',
+                        'ink-light': '#6b6b6b',
+                        'garden': '#5a7c65',
+                        'garden-warm': '#8b7355',
+                        'earth': '#8b6f47',
+                        'earth-dark': '#6b5637',
+                        'wild': '#5c4a3a',
+                        'terracotta': '#c19a6b',
+                        'sage': '#a8b5a2',
+                        'taupe': '#b8a99a',
+                        'clay': '#aa7e5a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ========== 基础样式 ========== */
+        body {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(168,181,162,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(193,154,107,0.06) 0%, transparent 50%),
+                #f7f5f0;
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+            color: #2a2a2a;
+        }
+
+        .book-paper {
+            position: relative;
+            background-color: transparent;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.015) 0%, transparent 3%, transparent 97%, rgba(0,0,0,0.015) 100%);
+        }
+
+        .book-paper::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,20 Q40,10 60,20 T100,20' stroke='%239e8a7a' fill='none' stroke-width='0.3' opacity='0.1'/%3E%3Cpath d='M150,150 Q170,140 190,150' stroke='%235a7c65' fill='none' stroke-width='0.3' opacity='0.1'/%3E%3Ccircle cx='30' cy='180' r='5' fill='%23c19a6b' opacity='0.05'/%3E%3Ccircle cx='180' cy='30' r='8' fill='%23a8b5a2' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .left-page { box-shadow: 2px 0 8px rgba(0,0,0,0.04); }
+        
+        @keyframes textGlow {
+            0% { opacity: 0.5; text-shadow: 0 0 0 transparent; transform: translateY(3px); }
+            50% { opacity: 1; text-shadow: 0 0 15px rgba(90,124,101,0.2); }
+            100% { opacity: 1; text-shadow: 0 0 0 transparent; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text-banner h2 {
+            animation: textGlow 2s ease-out forwards;
+        }
+
+        .hero-text-banner h2:hover {
+            animation: subtle-wiggle 0.6s ease-in-out;
+        }
+
+        @keyframes subtle-wiggle {
+            0%,100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
+        }
+
+        .hero-text-banner p {
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .hero-text-banner p:nth-of-type(1) { animation-delay: 0.2s; }
+        .hero-text-banner p:nth-of-type(2) { animation-delay: 0.4s; }
+        .hero-text-banner p:nth-of-type(3) { animation-delay: 0.6s; }
+        .hero-text-banner .flex {
+            animation: fadeUp 0.8s 0.8s forwards;
+            opacity: 0;
+        }
+        
+        .fade-up { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        
+        .hover-lift { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+        
+        .about-drawer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .about-drawer.open { max-height: 600px; }
+        
+        .nav-container {
+            transition: margin-top 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .about-drawer.open + .nav-container { margin-top: 24px; }
+        
+        .contact-section {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .contact-section.open { max-height: 800px; }
+        
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #9e8a7a; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        
+        .home-logo {
+            width: 48px;
+            height: 48px;
+            border: 1.5px solid #9e8a7a;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: #9e8a7a;
+            transition: all 0.3s ease;
+            margin: 0 auto 16px auto;
+        }
+        .home-logo:hover {
+            background: #9e8a7a;
+            color: #f7f5f0;
+        }
+        
+        .hero-text-banner {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(4px);
+            padding: 32px 48px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        @media (max-width: 768px) {
+            .hero-text-banner {
+                padding: 24px 32px;
+            }
+        }
+        
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 92%, 
+                96% 100%, 
+                4% 100%, 
+                0% 92%
+            );
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .slides-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(168, 181, 162, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+        .slides-container:hover .slide-btn {
+            opacity: 1;
+        }
+        .slide-btn:hover {
+            background: rgba(0,0,0,0.6);
+        }
+        .slide-btn.prev { left: 20px; }
+        .slide-btn.next { right: 20px; }
+
+        .garden-btn:active,
+        .interaction-btn:active,
+        .slide-btn:active,
+        .social-icon:active,
+        .nav-link:active,
+        .home-logo:active,
+        .back-home:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease, box-shadow 0.2s;
+        }
+
+        .garden-btn:active {
+            background: #e8e0d5;
+            box-shadow: 0 0 20px rgba(90,124,101,0.4);
+            transition: all 0.12s;
+        }
+        
+        .social-icon {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        .social-icon svg {
+            transition: transform 0.3s ease;
+        }
+        .social-icon:hover svg {
+            transform: scale(1.15);
+        }
+        .social-tooltip {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #9e8a7a;
+            color: #f7f5f0;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+        .social-icon:hover .social-tooltip { opacity: 1; }
+        
+        /* 二维码弹窗样式 */
+        .qr-popup {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 100%;
+            margin-bottom: 12px;
+            z-index: 100;
+            display: none;
+            min-width: 140px;
+        }
+        .qr-popup.show {
+            display: block;
+        }
+        .qr-popup .qr-content {
+            background: white;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border: 1px solid #eae3da;
+            text-align: center;
+            min-width: 120px;
+        }
+       /* 微信二维码样式 */
+#wechat-qr-popup img {
+    width: 120px;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    display: block;
+}
+
+/* 公众号二维码样式 */
+#mp-qr-popup img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+}
+        .qr-popup p {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #5a4a3a;
+        }
+        .qr-popup::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -6px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: translateX(-50%) rotate(45deg);
+            border-right: 1px solid #eae3da;
+            border-bottom: 1px solid #eae3da;
+        }
+        
+        .garden-btn {
+            background: #f7f5f0;
+            color: #5c4a3a;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .garden-btn:hover {
+            background: #f9f0e8;
+            color: #5c4a3a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(193, 154, 107, 0.15);
+        }
+        
+        .page-section {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: pageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes pageFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        
+        .brand-text {
+            transition: opacity 0.5s ease;
+        }
+        
+        .article-image, .card-image img {
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+        
+        .title-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .title-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #5a7c65;
+            transition: width 0.3s ease;
+        }
+        .group:hover .title-underline::after {
+            width: 100%;
+        }
+        
+        #mobileMenu {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background-image: linear-gradient(to right, rgba(0,0,0,0.015) 0%, transparent 3%, transparent 97%, rgba(0,0,0,0.015) 100%);
+        }
+
+        .divider {
+            max-width: 1200px;
+            margin: 30px auto 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #c19a6b 20%, #a8b5a2 50%, #9e8a7a 80%, transparent 100%);
+            opacity: 0.3;
+        }
+
+        .article-card {
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 92%, 
+                96% 100%, 
+                4% 100%, 
+                0% 92%
+            );
+            transition: clip-path 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        .article-card:hover {
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 100%, 
+                96% 100%, 
+                4% 100%, 
+                0% 100%
+            );
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .article-card .grid {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .outdoor-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .outdoor-icon span {
+            display: block;
+            font-size: 2.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: #8b6f47;
+        }
+
+        .outdoor-icon:hover span {
+            transform: scale(1.2);
+            color: #5a7c65;
+        }
+
+        .outdoor-icon.active span {
+            transform: scale(1.2);
+            color: #5a7c65;
+        }
+
+        .outdoor-content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .outdoor-content-item {
+            display: none;
+        }
+
+        .outdoor-content-item.expanded {
+            display: block;
+            animation: slideDown 0.3s ease forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .activity-card {
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 92%, 
+                96% 100%, 
+                4% 100%, 
+                0% 92%
+            );
+            transition: clip-path 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            background-color: #f7f5f0;
+        }
+        
+        .activity-card:hover {
+            clip-path: polygon(
+                0% 0%, 
+                100% 0%, 
+                100% 100%, 
+                96% 100%, 
+                4% 100%, 
+                0% 100%
+            );
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        /* ========== 厨房模块样式 ========== */
+        .kitchen-section {
+            background: #F9F6F0;
+        }
+        
+        .kitchen-image-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: visible;
+        }
+        
+        .kitchen-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+        
+        /* 电脑端便利贴样式 */
+        .sticker-note {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+            background: rgba(255, 250, 235, 0.95);
+            padding: 4px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-size: 11px;
+            font-weight: 500;
+            color: #5a4a3a;
+            white-space: nowrap;
+            font-family: 'Noto Serif SC', serif;
+            backdrop-filter: blur(2px);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .sticker-note:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+            z-index: 20;
+        }
+        
+        .sticker-note[data-type="sticker1"] { background: rgba(255, 242, 215, 0.95); }
+        .sticker-note[data-type="sticker2"] { background: rgba(255, 228, 224, 0.95); }
+        .sticker-note[data-type="sticker3"] { background: rgba(232, 240, 232, 0.95); }
+        .sticker-note[data-type="sticker4"] { background: rgba(230, 240, 250, 0.95); }
+        .sticker-note[data-type="sticker5"] { background: rgba(255, 240, 224, 0.95); }
+        
+        /* 电脑端拍立得样式 */
+        .polaroid-note {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+            background: white;
+            padding: 4px 4px 8px 4px;
+            border-radius: 4px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 60px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .polaroid-note:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+            z-index: 20;
+        }
+        
+        .polaroid-note img {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+        
+        .polaroid-caption {
+            font-size: 9px;
+            color: #8b6f47;
+            margin-top: 4px;
+            font-family: 'Noto Serif SC', serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* 弹窗样式 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .note-popup {
+            background: #FFFEF7;
+            width: 380px;
+            max-width: 90%;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            font-family: 'Noto Serif SC', serif;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .popup-overlay.show .note-popup {
+            transform: scale(1);
+        }
+        
+        .note-popup::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.15) 100%);
+            border-radius: 0 0 16px 0;
+            pointer-events: none;
+        }
+        
+        .note-header {
+            padding: 16px 20px 12px;
+            border-bottom: 1px dashed #E0D8C0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .note-header .pin {
+            font-size: 20px;
+        }
+        
+        .note-header h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #5A4B38;
+            margin: 0;
+        }
+        
+        .note-body {
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4a3a2a;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        .popup-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-top: 1px solid #F0E8DD;
+            background: #FFFEF7;
+            border-radius: 0 0 16px 16px;
+        }
+        
+        .popup-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .popup-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #5a4a3a;
+        }
+        
+        .popup-sub {
+            font-size: 10px;
+            color: #9e8a7a;
+        }
+        
+        /* 顶部标签 */
+        .top-tags {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            justify-content: flex-start;
+            padding-left: 32px;
+        }
+        
+        .tag-tilt {
+            display: inline-block;
+            background: #f5efe6;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #8b6f47;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .tag-tilt:nth-child(1) { transform: rotate(-3deg) translateY(2px); }
+        .tag-tilt:nth-child(2) { transform: rotate(2deg) translateY(-1px); }
+        .tag-tilt:nth-child(3) { transform: rotate(-1deg) translateY(3px); }
+        
+        .tag-tilt:hover {
+            transform: rotate(0deg) translateY(0);
+            background: #e8ddcf;
+        }
+        
+        .show-all-btn {
+            background: transparent;
+            border: 1px solid #c4b8ae;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #9e8a7a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .show-all-btn:hover {
+            background: #c4b8ae;
+            color: white;
+            border-color: #c4b8ae;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+            padding-left: 32px;
+            padding-right: 32px;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #5c4a3a;
+            letter-spacing: 1px;
+        }
+        
+        .section-sub {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .section-sub .line {
+            width: 40px;
+            height: 1px;
+            background: #c4b8ae;
+        }
+        
+        .section-sub .dot {
+            width: 6px;
+            height: 6px;
+            border: 1px solid #c4b8ae;
+            transform: rotate(45deg);
+        }
+        
+        /* ========== 手机端卡片列表样式 ========== */
+        .mobile-view {
+            display: none;
+        }
+        
+        .mobile-card {
+            background: #FFFEF7;
+            border-radius: 0 0 12px 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .mobile-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.12) 100%);
+            border-radius: 0 0 12px 0;
+            pointer-events: none;
+        }
+        
+        .mobile-card[data-type="sticker1"] { background: #FFF9E8; }
+        .mobile-card[data-type="sticker2"] { background: #FFEFE8; }
+        .mobile-card[data-type="sticker3"] { background: #E8F0E8; }
+        .mobile-card[data-type="polaroid"] { background: #FFFFFF; }
+        
+        .mobile-card-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #5a4a3a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .mobile-card-content {
+            font-size: 13px;
+            color: #6b6b6b;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .mobile-card-date {
+            font-size: 10px;
+            color: #c4b8ae;
+            margin-top: 8px;
+        }
+        
+        .mobile-card-photo {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .mobile-read-more {
+            font-size: 11px;
+            color: #c19a6b;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        
+        /* 响应式 */
+                @media (max-width: 768px) {
+            /* 电脑端隐藏 */
+            .desktop-view {
+                display: none;
+            }
+            /* 手机端显示 */
+            .mobile-view {
+                display: block;
+                padding: 0 16px;
+            }
+            .top-tags {
+                padding-left: 16px;
+                margin-bottom: 24px;
+            }
+            .section-header {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            #wechat-qr-popup img {
+                width: 100px;
+                height: auto;
+                max-height: 100px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-view {
+                display: none;
+            }
+            .desktop-view {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="book-paper text-ink font-sans antialiased">
+
+    <!-- 左侧固定导航 -->
+    <aside class="fixed left-0 top-0 h-full w-64 bg-paper left-page z-50 hidden md:flex flex-col justify-between py-8 px-6 border-r border-sepia/10">
+        <div>
+            <div class="mb-6 text-center">
+                <button onclick="toggleAbout()" class="group relative inline-block">
+                    <div class="w-16 h-16 mx-auto rounded-full overflow-hidden border border-sepia/20 mb-3 group-hover:border-sepia/40 transition-colors">
+                        <img src="/images/avatar.jpg" alt="刘" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                </button>
+            </div>
+
+            <div class="mb-4 brand-text" style="padding-left: 1.25rem; padding-right: 1.25rem;">
+                <div class="text-xs tracking-widest text-sepia/80 font-light mb-2" style="text-align: left;">The Yearned Haven</div>
+                <h1 class="font-serif text-xl font-medium text-ink mb-1 tracking-wide" style="text-align: left;">向往的美好花园</h1>
+                <div class="text-sm text-ink-light font-light leading-relaxed mb-3" style="text-align: left;">心之所向的理想居所</div>
+                <div class="w-8 h-px bg-sepia/30 mb-3" style="margin-left: 0; margin-right: auto;"></div>
+                <p class="text-[0.7rem] text-ink-light/70 font-light tracking-wide whitespace-nowrap" style="text-align: left;">建筑·室内·庭院·安宁生活</p>
+            </div>
+
+            <a href="#home" class="block"><div class="home-logo">HOME</div></a>
+
+            <div id="aboutDrawer" class="about-drawer">
+                <div class="border-t border-sepia/20 pt-6 mt-2 text-center">
+                    <p class="text-xs text-ink-light font-light leading-loose mb-4">从规划家园到野径的呼吸者<br>十五年规划家园设计<br>珍藏人与自然的亲密</p>
+                    <p class="text-xs text-ink-light font-light leading-loose mb-4">光影中寻安静，路途中找心跳<br>聊家园、建筑故事、花园低语<br>轻户外冒险</p>
+                    <p class="text-xs text-ink-light font-light leading-loose mb-4">空间被生活与感受重塑<br><span class="text-garden-warm">一起户外｜愿做你的同行者</span><br>一起深吸自由空气</p>
+                    <p class="text-[10px] text-sepia mt-4 pt-4 border-t border-sepia/10">咨询合作请私信留言<br>注明来意我会与你联系</p>
+                </div>
+            </div>
+
+            <div class="nav-container">
+                <nav class="text-center space-y-4">
+                    <a href="/diary/" class="nav-link block text-sm text-ink-light hover:text-ink transition-colors">家园随记</a>
+                    <a href="#outdoor" class="nav-link block text-sm text-ink-light hover:text-ink transition-colors">一起户外</a>
+                    <a href="#for-mark" class="nav-link block text-sm text-[#f4a261] hover:text-[#e76f51] transition-colors font-medium">写给MARK</a>
+                    <button onclick="toggleContact()" class="nav-link block text-sm text-garden-warm hover:text-earth transition-colors w-full">找我韶韶</button>
+                </nav>
+            </div>
+        </div>
+        <div class="text-center text-[10px] text-ink-light/40"><p>© 2026</p></div>
+    </aside>
+
+    <!-- 移动端导航 -->
+    <nav class="md:hidden fixed w-full z-50 bg-paper/95 backdrop-blur-sm border-b border-sepia/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-start gap-3">
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-sepia/20 flex-shrink-0 mt-1"><img src="/images/avatar.jpg" class="w-full h-full object-cover"></div>
+            <div class="flex flex-col items-start leading-tight">
+                <div class="text-[0.6rem] text-sepia/70 tracking-wider mb-0.5">The Yearned Haven</div>
+                <div class="font-serif text-base font-medium text-ink mb-0.5">向往的美好花园</div>
+                <div class="text-[0.65rem] text-ink-light/80 mb-0.5">心之所向的理想居所</div>
+                <div class="text-[0.55rem] text-ink-light/50 tracking-wide">建筑 · 室内 · 庭院 · 安宁生活</div>
+            </div>
+        </div>
+        <button onclick="toggleMobileMenu()" class="text-garden-warm text-2xl">☰</button>
+    </nav>
+
+    <div id="mobileMenu" class="fixed inset-0 bg-paper z-40 transform -translate-x-full md:hidden pt-24 px-6">
+        <button onclick="toggleMobileMenu()" class="absolute top-4 right-6 text-3xl text-ink-light">&times;</button>
+        <div class="space-y-8 text-center">
+            <div onclick="toggleAbout()" class="w-24 h-24 mx-auto rounded-full overflow-hidden border border-sepia/20 cursor-pointer"><img src="/images/avatar.jpg" class="w-full h-full object-cover"></div>
+            <div class="space-y-4">
+                <a href="/diary/" onclick="toggleMobileMenu()" class="block text-lg text-ink-light hover:text-ink transition-colors">家园随记</a>
+                <a href="#outdoor" onclick="toggleMobileMenu()" class="block text-lg text-ink-light hover:text-ink transition-colors">一起户外</a>
+                <a href="#for-mark" onclick="toggleMobileMenu()" class="block text-lg text-[#f4a261] hover:text-[#e76f51] transition-colors">写给MARK</a>
+                <button onclick="toggleMobileMenu(); setTimeout(toggleContact, 300)" class="block w-full text-lg text-garden-warm hover:text-earth transition-colors">找我韶韶</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="md:ml-64">
+        
+        <!-- 首屏轮播 -->
+        <section id="home" class="min-h-screen relative flex items-end page-section">
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <div class="slides-container w-full h-full">
+                    <div class="slide active"><img src="/images/slide01.jpg" alt="花园1" class="w-full h-full object-cover"></div>
+                    <div class="slide"><img src="/images/slide02.jpg" alt="花园2" class="w-full h-full object-cover"></div>
+                    <div class="slide"><img src="/images/slide03.jpg" alt="花园3" class="w-full h-full object-cover"></div>
+                    <button class="slide-btn prev" onclick="changeSlide(-1)">❮</button>
+                    <button class="slide-btn next" onclick="changeSlide(1)">❯</button>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+            </div>
+            <div class="relative z-10 w-full">
+                <div class="px-10 pb-24 pt-32">
+                    <div class="fade-up hero-text-banner" style="padding: 32px 48px; width: 100%; box-sizing: border-box;">
+                        <div class="max-w-3xl mx-auto">
+                            <div class="flex items-center gap-3 mb-6"><div class="w-12 h-px bg-sepia"></div><span class="text-xs text-[#e6d5b8] tracking-widest uppercase">The Yearned Haven</span></div>
+                            <h2 class="font-serif text-3xl md:text-4xl text-white leading-relaxed mb-6 font-extralight">我是那个<br><span class="text-[#e6d5b8] italic">体会学习与空间相处</span>的人</h2>
+                            <p class="text-sm md:text-base lg:text-lg text-white/90 font-extralight leading-relaxed max-w-lg mb-4">从规划建设家园到山野间呼吸，<br>找寻心之所向的居所。</p>
+                            <p class="text-sm md:text-base lg:text-lg text-white/90 font-extralight leading-relaxed max-w-lg mb-4">在这里交流心里的家园、建筑故事、<br>居家一角、花园疗愈以及一起户外。</p>
+                            <p class="text-sm md:text-base text-[#e6d5b8] font-extralight leading-normal max-w-lg mb-6 italic">愿做你的同行者，一起深吸自由空气。</p>
+                            <div class="flex items-center gap-2 text-xs text-white/80 flex-wrap md:flex-nowrap"><span>南京</span><span>·</span><span>十五年</span><span>·</span><span>建造家园</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 家园随记 -->
+        <section id="notes" class="py-20 px-8 bg-white page-section delay-1">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-end justify-between mb-16 fade-up">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4"><div class="w-2 h-2 border border-sepia rotate-45"></div><div class="w-12 h-px bg-sepia/40"></div></div>
+                        <h2 class="font-serif text-3xl text-ink mb-2">家园随记</h2>
+                        <p class="text-xs text-ink-light font-light tracking-wide">建筑、花园、家居与疗愈</p>
+                    </div>
+                    <a href="/diary/" class="text-xs text-sepia hover:text-terracotta transition-colors flex items-center gap-1">查看全部<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></a>
+                </div>
+                <div class="space-y-12">
+                    <article class="group cursor-pointer hover-lift bg-paper rounded-sm overflow-hidden fade-up article-card">
+                        <div class="grid md:grid-cols-5 gap-0">
+                            <div class="md:col-span-2 aspect-[4/3] md:aspect-auto overflow-hidden"><img src="/diary/images/aesthetics01.jpg" alt="客厅阅读角落" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 article-image"></div>
+                            <div class="md:col-span-3 p-6 md:p-8 flex flex-col justify-center">
+                                <div class="flex items-center gap-2 mb-3"><span class="border border-clay/30 bg-sage/20 text-ink-light text-[0.65rem] px-2 py-1 rounded-sm">家居美学</span></div>
+                                <h3 class="font-serif text-xl mb-3 group-hover:text-garden transition-colors title-underline">在厅一角的独享阅读空间，也可以放空🈳</h3>
+                                <p class="text-sm text-ink-light font-light leading-relaxed mb-4">在客厅的一部分就可以实现这个角落，自愈自我的空间。只需要一个舒适的沙发或单人椅，搭配一个小书架或边几，再有一盏温暖的落地灯...</p>
+                                <div class="flex items-center text-xs text-sepia"><a href="/diary/aesthetics/" class="hover:text-garden transition-colors">阅读全文</a><svg class="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="group cursor-pointer hover-lift bg-paper rounded-sm overflow-hidden fade-up article-card">
+                        <div class="grid md:grid-cols-5 gap-0">
+                            <div class="md:col-span-2 aspect-[4/3] md:aspect-auto overflow-hidden"><img src="/diary/images/garden01.jpg" alt="花园园艺" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 article-image"></div>
+                            <div class="md:col-span-3 p-6 md:p-8 flex flex-col justify-center">
+                                <div class="flex items-center gap-2 mb-3"><span class="border border-clay/30 bg-sage/20 text-ink-light text-[0.65rem] px-2 py-1 rounded-sm">花园园艺</span></div>
+                                <h3 class="font-serif text-xl mb-3 group-hover:text-garden transition-colors title-underline">花园不卷审美，只种开心🌱</h3>
+                                <p class="text-sm text-ink-light font-light leading-relaxed mb-4">养花种草哪有那么多规矩，喜欢就种，好看就留。风吹过枝叶，花开得热烈，连杂草都带着生命力...</p>
+                                <div class="flex items-center text-xs text-sepia"><a href="/diary/garden/" class="hover:text-garden transition-colors">阅读全文</a><svg class="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 一起户外 -->
+        <section id="outdoor" class="py-20 px-8 page-section delay-2" style="background: linear-gradient(135deg, #f5f2eb 0%, #e8e0d5 100%);">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-end justify-between mb-12 fade-up">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4"><div class="w-2 h-2 border border-earth rotate-45"></div><div class="w-12 h-px bg-earth/40"></div></div>
+                        <h2 class="font-serif text-3xl text-wild mb-2">一起户外 WeGo outdoor</h2>
+                        <p class="text-xs text-earth-dark font-light tracking-wide">轻户外 · 进入不同世界</p>
+                    </div>
+                </div>
+                <div class="bg-paper rounded-sm overflow-hidden shadow-sm fade-up mb-12"><div class="aspect-[21/9] overflow-hidden"><img src="/images/outdoor-fengmian.jpg" alt="户外徒步" class="w-full h-full object-cover"></div></div>
+                <div class="mb-12 fade-up"><h3 class="font-serif text-2xl text-wild mb-4">一起户外，你的同行者</h3><p class="text-sm text-earth-dark font-light leading-relaxed max-w-2xl">我意识到与自然的疏离，决定与你一起轻户外，寻找城市边缘的小山、步道，享受自然的宁静与风。我们不走远，只需愿意放下脚步，聊生活，找回自由。</p></div>
+                <div class="grid md:grid-cols-3 gap-6 mb-12 fade-up">
+                    <div class="text-center group cursor-pointer" onclick="toggleOutdoorTab('hiking')"><div class="p-4 border border-earth/10 rounded-sm bg-paper/80 hover:shadow-md transition-shadow"><div class="outdoor-icon mb-2" id="icon-hiking"><span class="text-4xl block transition-all duration-300" style="color: #8b6f47;">⛰️</span></div><div class="text-xs text-wild font-medium mb-1">徒步爬山</div><div class="text-[10px] text-earth-dark/60">用脚步丈量山脊</div></div></div>
+                    <div class="text-center group cursor-pointer" onclick="toggleOutdoorTab('camping')"><div class="p-4 border border-earth/10 rounded-sm bg-paper/80 hover:shadow-md transition-shadow"><div class="outdoor-icon mb-2" id="icon-camping"><span class="text-4xl block transition-all duration-300" style="color: #8b6f47;">⛺</span></div><div class="text-xs text-wild font-medium mb-1">越野露营</div><div class="text-[10px] text-earth-dark/60">在荒野中安家</div></div></div>
+                    <div class="text-center group cursor-pointer" onclick="toggleOutdoorTab('cycling')"><div class="p-4 border border-earth/10 rounded-sm bg-paper/80 hover:shadow-md transition-shadow"><div class="outdoor-icon mb-2" id="icon-cycling"><span class="text-4xl block transition-all duration-300" style="color: #8b6f47;">🚴</span></div><div class="text-xs text-wild font-medium mb-1">骑行</div><div class="text-[10px] text-earth-dark/60">让风穿过身体</div></div></div>
+                </div>
+                <div id="outdoor-content" class="outdoor-content-wrapper mb-12">
+                    <div id="content-hiking" class="outdoor-content-item"><div class="bg-paper/90 p-6 rounded-sm border border-earth/10 fade-up"><h4 class="font-serif text-lg text-wild mb-4 flex items-center gap-2"><span class="text-2xl" style="color: #8b6f47;">⛰️</span> 💡徒步爬山Tips：</h4><div class="grid md:grid-cols-2 gap-4 text-sm text-earth-dark"><ul class="space-y-1"><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>登山杖（省力30%）</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>护膝、防滑登山鞋</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>2L水袋、能量补给</span></li></ul><ul class="space-y-1"><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>结伴而行，提前看天气</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>下载离线地图</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>心率保持在60%-70%</span></li></ul></div></div></div>
+                    <div id="content-camping" class="outdoor-content-item"><div class="bg-paper/90 p-6 rounded-sm border border-earth/10 fade-up"><h4 class="font-serif text-lg text-wild mb-4 flex items-center gap-2"><span class="text-2xl" style="color: #8b6f47;">⛺</span> 💡越野露营Tips：</h4><div class="grid md:grid-cols-2 gap-4 text-sm text-earth-dark"><ul class="space-y-1"><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>避开风口、低洼处</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>离水源至少50米</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>地面平整、排水好</span></li></ul><ul class="space-y-1"><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>R值防潮垫</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>舒适温标的睡袋</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>无痕山林，带走垃圾</span></li></ul></div></div></div>
+                    <div id="content-cycling" class="outdoor-content-item"><div class="bg-paper/90 p-6 rounded-sm border border-earth/10 fade-up"><h4 class="font-serif text-lg text-wild mb-4 flex items-center gap-2"><span class="text-2xl" style="color: #8b6f47;">🚴</span> 💡骑行Tips：</h4><div class="grid md:grid-cols-2 gap-4 text-sm text-earth-dark"><ul class="space-y-1"><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>踏频80-90转/分钟</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>合理变速保护膝盖</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>每小时补水一次</span></li></ul><ul class="space-y-1"><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>头盔、手套</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>车前灯、尾灯</span></li><li class="flex items-start gap-2"><span class="text-terracotta">•</span><span>修补工具、备胎</span></li></ul></div></div></div>
+                </div>
+                <div class="fade-up" style="margin-top: -30px;">
+                    <div class="flex justify-end mb-3"><a href="/outdoor/" class="text-xs text-earth hover:text-earth-dark transition-colors flex items-center gap-1">查看全部活动<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg></a></div>
+                    <a href="/outdoor/from-garden-to-wind/" class="block group"><div class="grid md:grid-cols-5 gap-0 bg-paper rounded-sm overflow-hidden activity-card"><div class="md:col-span-2 aspect-[4/3] md:aspect-auto overflow-hidden"><img src="/outdoor/images/outdoor-kafeng.jpg" alt="从庭院到山风" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div><div class="md:col-span-3 p-6 md:p-8 flex flex-col justify-center"><div class="flex items-center gap-2 mb-3"><span class="border border-earth/30 bg-earth/10 text-earth-dark text-[0.65rem] px-2 py-1 rounded-sm">近期活动</span></div><h4 class="font-serif text-xl mb-2 group-hover:text-earth transition-colors title-underline">从庭院到山风，我开始想过一种更轻的生活 | 一起户外</h4><div class="flex items-center gap-3 text-sm text-earth-dark mb-3 flex-wrap"><span class="flex items-center gap-1">📅 2月20日</span><span class="text-earth/30">·</span><span class="flex items-center gap-1">📍 轻户外</span><span class="text-earth/30">·</span><span class="bg-earth/10 px-2 py-0.5 rounded-full text-xs">邀请同行</span></div><p class="text-sm text-ink-light font-light leading-relaxed mb-4">我邀请你放下脚步，与自然对话。做了十五年景观设计，但我好像很久没认真走进自然了。不是那种装备齐全的大户外，是很轻、很日常、很松弛的那种。</p><div class="flex items-center text-xs text-earth"><span class="hover:text-earth-dark transition-colors">查看详情</span><svg class="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></div></div></div></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 写给MARK · 厨房模块 ========== -->
+        <section id="for-mark" class="py-20 px-8 page-section kitchen-section">
+            <div class="max-w-6xl mx-auto">
+                <div class="section-header" style="margin-bottom: 24px;">
+                    <div>
+                        <div class="section-sub">
+                            <div class="dot"></div>
+                            <div class="line"></div>
+                        </div>
+                        <h2 class="section-title">写给MARK</h2>
+                    </div>
+                    <button id="show-all-stickers" class="show-all-btn">
+                        📋 显示全部内容
+                    </button>
+                </div>
+                
+                <div class="top-tags">
+                    <span class="tag-tilt">父与子</span>
+                    <span class="tag-tilt">不正经育儿</span>
+                    <span class="tag-tilt">MARK说</span>
+                </div>
+                
+                <!-- 电脑端视图：厨房图片 + 贴纸 -->
+                <div class="desktop-view">
+                    <div class="kitchen-image-wrapper">
+                        <img src="/for-mark/images/kitchen-bg.jpg" alt="厨房" class="kitchen-image">
+                        
+                        <!-- 5个文字便签 -->
+                        <div class="sticker-note" data-sticker="父与子·高尔夫" data-type="sticker1" style="position: absolute; left: 714px; top: 332px; transform: rotate(-2deg);">
+                            父与子·高尔夫
+                        </div>
+                        <div class="sticker-note" data-sticker="优缺点对话" data-type="sticker2" style="position: absolute; left: 842px; top: 330px; transform: rotate(3deg);">
+                            优缺点对话
+                        </div>
+                        <div class="sticker-note" data-sticker="见到MARK就喜欢瞎搞" data-type="sticker3" style="position: absolute; left: 810px; top: 340px; transform: rotate(-1deg);">
+                            见到MARK就喜欢瞎搞
+                        </div>
+                        <div class="sticker-note" data-sticker="卧槽你们干嘛呢！" data-type="sticker4" style="position: absolute; left: 957px; top: 432px; transform: rotate(2deg);">
+                            卧槽你们干嘛呢！
+                        </div>
+                        <div class="sticker-note" data-sticker="CU住院，Mark嚎啕大哭" data-type="sticker5" style="position: absolute; left: 810px; top: 414px; transform: rotate(-3deg);">
+                            CU住院，Mark嚎啕大哭
+                        </div>
+                        
+                        <!-- 3个拍立得 -->
+                        <div class="polaroid-note" data-sticker="我潮" data-type="photo" data-image="/for-mark/images/markpld-1.jpg" style="position: absolute; left: 842px; top: 402px; transform: rotate(-2deg);">
+                            <img src="/for-mark/images/markpld-1.jpg" alt="我潮" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2252%22%20height%3D%2252%22%20viewBox%3D%220%200%2052%2052%22%3E%3Crect%20width%3D%2252%22%20height%3D%2252%22%20fill%3D%22%23f0e8dd%22%2F%3E%3Ctext%20x%3D%2226%22%20y%3D%2226%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%20fill%3D%22%239e8a7a%22%20font-size%3D%2210%22%3E📸%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                            <div class="polaroid-caption">我潮</div>
+                        </div>
+                        <div class="polaroid-note" data-sticker="工作至深夜" data-type="photo" data-image="/for-mark/images/markpld-2.jpg" style="position: absolute; left: 821px; top: 472px; transform: rotate(1deg);">
+                            <img src="/for-mark/images/markpld-2.jpg" alt="工作至深夜" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2252%22%20height%3D%2252%22%20viewBox%3D%220%200%2052%2052%22%3E%3Crect%20width%3D%2252%22%20height%3D%2252%22%20fill%3D%22%23f0e8dd%22%2F%3E%3Ctext%20x%3D%2226%22%20y%3D%2226%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%20fill%3D%22%239e8a7a%22%20font-size%3D%2210%22%3E📸%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                            <div class="polaroid-caption">工作至深夜</div>
+                        </div>
+                        <div class="polaroid-note" data-sticker="遇见迪士尼" data-type="photo" data-image="/for-mark/images/markpld-3.jpg" style="position: absolute; left: 828px; top: 522px; transform: rotate(-2deg);">
+                            <img src="/for-mark/images/markpld-3.jpg" alt="遇见迪士尼" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2252%22%20height%3D%2252%22%20viewBox%3D%220%200%2052%2052%22%3E%3Crect%20width%3D%2252%22%20height%3D%2252%22%20fill%3D%22%23f0e8dd%22%2F%3E%3Ctext%20x%3D%2226%22%20y%3D%2226%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%20fill%3D%22%239e8a7a%22%20font-size%3D%2210%22%3E📸%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                            <div class="polaroid-caption">遇见迪士尼</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 手机端视图：简单卡片列表 -->
+                <div class="mobile-view">
+                    <!-- 卡片1: 父与子·高尔夫 -->
+                    <div class="mobile-card" data-type="sticker1" data-title="父与子·高尔夫" data-content="🏌️ 家庭mini高尔夫推杆比赛\n\n粑粑：自负认定会赢\n中途落后\n粑粑：“不跟你玩了，我要拿出我真正的实力了！”\n结果：输\n\n从此以后：\nMark歪着嘴巴学：“嗯～粑粑不跟你玩了，我要拿出我真正的实力了～”\n\n（确实会刺痛我一丢丢）\n\n📅 2025.3.12">
+                        <div class="mobile-card-title">
+                            <span>📌</span> 父与子·高尔夫
+                        </div>
+                        <div class="mobile-card-content">
+                            家庭mini高尔夫推杆比赛，粑粑自负认定会赢...
+                        </div>
+                        <div class="mobile-card-date">📅 2025.3.12</div>
+                        <div class="mobile-read-more">阅读全文 →</div>
+                    </div>
+                    
+                    <!-- 卡片2: 见到MARK就喜欢瞎搞 -->
+                    <div class="mobile-card" data-type="sticker2" data-title="见到MARK就喜欢瞎搞" data-content="😜 见到MARK就喜欢：\n• 不正经聊天\n• 开玩笑\n• 怼他\n• 闹他\n\n知道他胆小就轻轻吓他\n\n教他越野山地车：\n“就是要上沟沟坎坎，不走寻常路。”\n（我做示范伤到腰）\n\n📅 2025.3.12">
+                        <div class="mobile-card-title">
+                            <span>📌</span> 见到MARK就喜欢瞎搞
+                        </div>
+                        <div class="mobile-card-content">
+                            见到MARK就喜欢：不正经聊天、开玩笑、怼他、闹他...
+                        </div>
+                        <div class="mobile-card-date">📅 2025.3.12</div>
+                        <div class="mobile-read-more">阅读全文 →</div>
+                    </div>
+                    
+                    <!-- 卡片3: 卧槽你们干嘛呢！ -->
+                    <div class="mobile-card" data-type="sticker3" data-title="卧槽你们干嘛呢！" data-content="🏫 Mark回家路上说：\n“我们班有几个同学被老师罚站在三楼走廊，老师在‘教训’他们。”\n“隔壁教学楼三楼走廊的高个子校长大声说：\n‘卧槽你们干嘛呢！’”\n\n😂\n\n📅 2025.3.12">
+                        <div class="mobile-card-title">
+                            <span>📌</span> 卧槽你们干嘛呢！
+                        </div>
+                        <div class="mobile-card-content">
+                            校长喊“卧槽你们干嘛呢！”...
+                        </div>
+                        <div class="mobile-card-date">📅 2025.3.12</div>
+                        <div class="mobile-read-more">阅读全文 →</div>
+                    </div>
+                    
+                    <!-- 卡片4: 我潮（拍立得） -->
+                    <div class="mobile-card" data-type="polaroid" data-title="我潮" data-content="🔥 我潮\n\nMark学会一个新词：“我潮”。\n\n他说：“粑粑你今天穿得好潮！”\n\n我：“什么叫潮？”\n\n“就是很帅的意思啦！”\n\n然后他学我的样子照镜子，摆pose。\n\n这小子...\n\n📅 2025.2" data-image="/for-mark/images/markpld-1.jpg">
+                        <div class="mobile-card-title">
+                            <span>📸</span> 我潮
+                        </div>
+                        <img src="/for-mark/images/markpld-1.jpg" class="mobile-card-photo" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2280%22%20height%3D%2280%22%20viewBox%3D%220%200%2080%2080%22%3E%3Crect%20width%3D%2280%22%20height%3D%2280%22%20fill%3D%22%23f0e8dd%22%2F%3E%3Ctext%20x%3D%2240%22%20y%3D%2240%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%20fill%3D%22%239e8a7a%22%20font-size%3D%2216%22%3E📸%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                        <div class="mobile-card-content">
+                            Mark学会一个新词：“我潮”...
+                        </div>
+                        <div class="mobile-read-more">查看详情 →</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 找我韶韶 -->
+        <section id="contact" class="py-20 px-8 bg-white page-section">
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="fade-up">
+                    <div class="flex items-center justify-center gap-3 mb-6"><div class="w-12 h-px bg-sepia/30"></div><div class="w-2 h-2 border border-sepia rotate-45"></div><div class="w-12 h-px bg-sepia/30"></div></div>
+                    <button onclick="toggleContact()" class="w-full text-center group"><h2 class="font-serif text-3xl text-ink mb-3 group-hover:text-garden-warm transition-colors flex items-center justify-center">找我韶韶<svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg></h2><p class="text-xs text-ink-light font-light mb-8">唠嗑、咨询、同行，都行</p></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系展开 -->
+        <div id="contactSection" class="contact-section bg-wild text-paper">
+            <div class="max-w-md mx-auto px-8 py-16">
+                <div class="text-center mb-10"><h3 class="font-serif text-2xl mb-2">来韶</h3><p class="text-xs text-paper/50 font-light">想说点什么就给我写信，想咨询交流就加我微信，看到就会回复</p></div>
+                <div class="space-y-6 mb-10">
+                    <!-- 邮箱 -->
+                    <div class="flex items-center gap-4 justify-start max-w-[300px] mx-auto group">
+                        <a href="mailto:frankjliu@163.com" class="w-10 h-10 border border-paper/20 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:border-terracotta group-hover:text-terracotta">
+                            <svg class="w-4 h-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </a>
+                        <div class="text-left">
+                            <div class="text-[10px] text-paper/40 mb-1">邮箱</div>
+                            <div class="text-sm">
+                                <a href="mailto:frankjliu@163.com" class="hover:underline hover:text-terracotta transition-colors">frankjliu@163.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 微信 - 鼠标悬停显示，移开不消失，点击其他地方消失 -->
+                    <div class="flex items-center gap-4 justify-start max-w-[300px] mx-auto group relative" id="wechat-trigger" style="cursor: pointer;">
+                        <div class="w-10 h-10 border border-paper/20 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:border-terracotta group-hover:text-terracotta">
+                            <svg class="w-4 h-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-[10px] text-paper/40 mb-1">微信</div>
+                            <div class="text-sm">frankjliu</div>
+                            <div class="text-[10px] text-paper/40">添加请备注来意</div>
+                        </div>
+                        
+                        <!-- 二维码弹窗 -->
+                        <div class="qr-popup" id="wechat-qr-popup">
+                            <div class="qr-content">
+                                <img src="/images/wechat-qr.jpg" alt="微信二维码">
+                                <p>扫一扫加我微信</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="toggleContact()" class="garden-btn w-full mt-8 text-xs">收起</button>
+            </div>
+        </div> 
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-paper border-t border-sepia/10 py-12 px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="flex justify-center items-center gap-8 mb-8">
+                    <!-- 公众号 - 鼠标悬停显示，移开不消失，点击其他地方消失 -->
+                    <div class="social-icon text-ink-light hover:text-terracotta relative" id="mp-trigger" style="cursor: pointer;">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295.058 0 .114-.018.167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
+                        </svg>
+                        <span class="social-tooltip">公众号</span>
+                        
+                        <!-- 二维码弹窗 -->
+                        <div class="qr-popup" id="mp-qr-popup">
+                            <div class="qr-content">
+                                <img src="/images/wechat-mp-qr.jpg" alt="公众号二维码">
+                                <p>扫一扫加我公众号</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 小红书 - 已替换为您提供的链接 -->
+                    <a href="https://www.xiaohongshu.com/user/profile/6094a4190000000001009833?xsec_token=YBC9JcSODhYRgITafFHGiGBKP5np1rQCSFtND5pzCoV6o=&xsec_source=app_share&&apptime=1774601950&shareRedId=ODY7NEQ5NUI2NzUyOTgwNjY0OTc9PTk8&share_id=6afb06a1d3ee42a5884a6a7852f2b859&xhsshare=CopyLink" target="_blank" class="social-icon text-ink-light hover:text-terracotta">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.615 14.154h-1.846v-3.077h-1.538v3.077h-2.462v-3.077H9.231v3.077H7.385V7.846h1.846v3.077h1.538V7.846h2.462v3.077h1.538V7.846h1.846v8.308z"/>
+                        </svg>
+                        <span class="social-tooltip">小红书</span>
+                    </a>
+                    
+                    <!-- 抖音（链接占位，可后续替换） -->
+                    <a href="#" class="social-icon text-ink-light hover:text-terracotta">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                        <span class="social-tooltip">抖音</span>
+                    </a>
+                    
+                    <!-- 视频号（链接占位，可后续替换） -->
+                    <a href="#" class="social-icon text-ink-light hover:text-terracotta">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            <path d="M10 8l6 4-6 4V8z"/>
+                        </svg>
+                        <span class="social-tooltip">视频号</span>
+                    </a>
+                </div>
+                
+                <p class="font-serif text-ink text-sm mb-2">向往的美好花园</p>
+                
+                <!-- 免责声明 -->
+                <div class="text-[10px] text-ink-light/40 mt-4 pt-4 border-t border-sepia/10">
+                    <p>本网站内容均为原创，未经许可请勿转载。留言默认同意公开。</p>
+                </div>
+                
+                <!-- 访客计数 + 版权 -->
+                <div class="text-[10px] text-ink-light/40 mt-2">
+                    <span>📊 总访问 <span id="busuanzi_value_site_pv"></span> 次</span>
+                    <span class="mx-2">·</span>
+                    <span>今日 <span id="busuanzi_value_site_uv"></span> 人</span>
+                    <span class="mx-2">·</span>
+                    <span>2026</span>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" onclick="scrollToTop()" class="fixed bottom-6 right-6 w-12 h-12 bg-sepia text-paper rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50 md:hidden flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+
+<script>
+    // 基础函数
+    function toggleAbout() { document.getElementById('aboutDrawer').classList.toggle('open'); }
+    function toggleContact() { const s=document.getElementById('contactSection'); s.classList.toggle('open'); if(s.classList.contains('open')){setTimeout(()=>{s.scrollIntoView({behavior:'smooth',block:'nearest'});},100);} }
+    function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('-translate-x-full'); }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){e.preventDefault();const target=document.querySelector(this.getAttribute('href'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'});}});});
+    
+    // 滚动视差
+    let ticking=false;
+    window.addEventListener('scroll',function(){const scrolled=window.pageYOffset;document.documentElement.style.setProperty('--scroll',scrolled);if(!ticking){window.requestAnimationFrame(function(){if(window.innerWidth>=768){document.querySelectorAll('.article-image, .card-image img').forEach(img=>{const speed=0.05;const yPos=-(scrolled*speed);img.style.transform=`translateY(${yPos}px`;});}const brandText=document.querySelector('.brand-text');if(brandText){const opacity=0.7+(scrolled/1000)*0.3;brandText.style.opacity=Math.min(opacity,1);}const backToTopBtn=document.getElementById('backToTop');if(scrolled>300){backToTopBtn.classList.remove('opacity-0','pointer-events-none');backToTopBtn.classList.add('opacity-100','pointer-events-auto');}else{backToTopBtn.classList.remove('opacity-100','pointer-events-auto');backToTopBtn.classList.add('opacity-0','pointer-events-none');}ticking=false;});ticking=true;}});
+    
+    // 轮播
+    (function(){let currentSlide=0;const slides=document.querySelectorAll('.slide');const totalSlides=slides.length;let timer;let touchStartX=0;const slidesContainer=document.querySelector('.slides-container');if(totalSlides>1&&slidesContainer){timer=setInterval(nextSlide,5000);window.changeSlide=function(direction){clearInterval(timer);let nextIndex=currentSlide+direction;if(nextIndex<0)nextIndex=totalSlides-1;if(nextIndex>=totalSlides)nextIndex=0;slides[currentSlide].classList.remove('active');slides[nextIndex].classList.add('active');currentSlide=nextIndex;timer=setInterval(nextSlide,5000);};function nextSlide(){let next=(currentSlide+1)%totalSlides;slides[currentSlide].classList.remove('active');slides[next].classList.add('active');currentSlide=next;}slidesContainer.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;});slidesContainer.addEventListener('touchend',e=>{const touchEndX=e.changedTouches[0].clientX;if(touchStartX-touchEndX>50)window.changeSlide(1);if(touchEndX-touchStartX>50)window.changeSlide(-1);});slidesContainer.addEventListener('wheel',function(e){e.preventDefault();if(e.deltaY>0){window.changeSlide(1);}else{window.changeSlide(-1);}},{passive:false});}})();
+    
+    // 户外Tab
+    let currentActiveTab=null;
+    function toggleOutdoorTab(tabName){const clickedIcon=document.getElementById(`icon-${tabName}`);const clickedContent=document.getElementById(`content-${tabName}`);if(currentActiveTab===tabName){clickedContent.classList.remove('expanded');clickedIcon.classList.remove('active');currentActiveTab=null;return;}if(currentActiveTab){const prevIcon=document.getElementById(`icon-${currentActiveTab}`);const prevContent=document.getElementById(`content-${currentActiveTab}`);prevContent.classList.remove('expanded');prevIcon.classList.remove('active');}clickedContent.classList.add('expanded');clickedIcon.classList.add('active');currentActiveTab=tabName;setTimeout(()=>{const iconArea=document.getElementById(`icon-${tabName}`).closest('.text-center');const iconRect=iconArea.getBoundingClientRect();const scrollTarget=window.pageYOffset+iconRect.top-80;window.scrollTo({top:scrollTarget,behavior:'smooth'});},150);}
+    
+    // ========== 厨房模块交互 ==========
+    (function(){
+        // 所有便签内容
+        const stories = {
+            "父与子·高尔夫": "🏌️ 家庭mini高尔夫推杆比赛\n\n粑粑：自负认定会赢\n中途落后\n粑粑：“不跟你玩了，我要拿出我真正的实力了！”\n结果：输\n\n从此以后：\nMark歪着嘴巴学：“嗯～粑粑不跟你玩了，我要拿出我真正的实力了～”\n\n（确实会刺痛我一丢丢）\n\n📅 2025.3.12",
+            "优缺点对话": "👨‍👦 粑粑：“每个人都有优缺点，你呢？”\nMark：“我的优点是太帅，个子高又聪明。”\n粑粑：“缺点呢？”\nMark：“没有。”\n粑粑：“😓”\n\n（他开心的时候叫我粑粑，正常叫我爸爸，但好像叫我粑粑的时候多一些）\n\n📅 2025.3.12",
+            "见到MARK就喜欢瞎搞": "😜 见到MARK就喜欢：\n• 不正经聊天\n• 开玩笑\n• 怼他\n• 闹他\n\n知道他胆小就轻轻吓他\n\n教他越野山地车：\n“就是要上沟沟坎坎，不走寻常路。”\n（我做示范伤到腰）\n\n📅 2025.3.12",
+            "卧槽你们干嘛呢！": "🏫 Mark回家路上说：\n“我们班有几个同学被老师罚站在三楼走廊，老师在‘教训’他们。”\n“隔壁教学楼三楼走廊的高个子校长大声说：\n‘卧槽你们干嘛呢！’”\n\n😂\n\n📅 2025.3.12",
+            "CU住院，Mark嚎啕大哭": "🏠 23年十一长假Mark和奶奶去苏州弟弟家玩\n第一天我进CU半个月\n他们赶回来Mark在CU见到我没说什么\n我还跟他开玩笑\n\n后来他写关于这个事的作文\n妈妈逼问他感受\n他嚎啕大哭\n\n我才知道他什么都知道\n（他不说，但都懂）\n\n📅 2023.10 → 2025.3",
+            "我潮": "🔥 我潮\n\nMark学会一个新词：“我潮”。\n\n他说：“粑粑你今天穿得好潮！”\n\n我：“什么叫潮？”\n\n“就是很帅的意思啦！”\n\n然后他学我的样子照镜子，摆pose。\n\n这小子...\n\n📅 2025.2",
+            "工作至深夜": "💼 工作至深夜\n\n那天加班到凌晨两点，回到家发现Mark还没睡。\n\n“粑粑你怎么才回来？”\n\n“爸爸在工作呀。”\n\n“那你明天可以陪我玩吗？”\n\n“当然可以。”\n\n他笑了，说：“那我等你。”\n\n📅 2024.11",
+            "遇见迪士尼": "🎠 遇见迪士尼\n\n某个周末带Mark去迪士尼，他第一次见到米奇，兴奋得跳起来。\n\n“粑粑！米奇好大只！”\n\n那天我们玩了小飞象、旋转木马，还看了烟花秀。\n\n他说这是最开心的一天。\n\n📅 2024.8"
+        };
+        
+        // 创建弹窗
+        const overlay = document.createElement('div');
+        overlay.className = 'popup-overlay';
+        document.body.appendChild(overlay);
+        
+        const popup = document.createElement('div');
+        popup.className = 'note-popup';
+        overlay.appendChild(popup);
+        
+        // 显示弹窗
+        function showPopup(title, content, isPhoto = false, imageSrc = '') {
+            let bodyContent = content.replace(/\n/g, '<br>');
+            if (isPhoto && imageSrc) {
+                bodyContent = `<img src="${imageSrc}" alt="${title}" style="max-width:100%; border-radius:8px; margin-bottom:12px;"><br>${bodyContent}`;
+            }
+            popup.innerHTML = `
+                <div class="note-header">
+                    <span class="pin">${isPhoto ? '📸' : '📌'}</span>
+                    <h3>${title}</h3>
+                </div>
+                <div class="note-body">
+                    ${bodyContent}
+                </div>
+                <div class="popup-footer">
+                    <img src="/images/avatar.jpg" class="popup-avatar" alt="avatar">
+                    <div>
+                        <div class="popup-name">向往的美好花园</div>
+                        <div class="popup-sub">心之所向的理想居所</div>
+                    </div>
+                </div>
+            `;
+            overlay.classList.add('show');
+        }
+        
+        function closePopup() {
+            overlay.classList.remove('show');
+        }
+        
+        // 绑定电脑端文字便签
+        const stickers = document.querySelectorAll('.sticker-note');
+        stickers.forEach(sticker => {
+            const title = sticker.getAttribute('data-sticker');
+            if (title && stories[title]) {
+                sticker.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPopup(title, stories[title]);
+                });
+            }
+        });
+        
+        // 绑定电脑端拍立得
+        const polaroids = document.querySelectorAll('.polaroid-note');
+        polaroids.forEach(polaroid => {
+            const title = polaroid.getAttribute('data-sticker');
+            const img = polaroid.querySelector('img');
+            const imgSrc = img ? img.src : '';
+            if (title && stories[title]) {
+                polaroid.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPopup(title, stories[title], true, imgSrc);
+                });
+            }
+        });
+        
+        // 绑定手机端卡片
+        const mobileCards = document.querySelectorAll('.mobile-card');
+        mobileCards.forEach(card => {
+            const title = card.getAttribute('data-title');
+            const content = card.getAttribute('data-content');
+            const isPhoto = card.getAttribute('data-type') === 'polaroid';
+            const imgSrc = card.getAttribute('data-image') || '';
+            if (title && content) {
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPopup(title, content, isPhoto, imgSrc);
+                });
+            }
+        });
+        
+        // 显示全部内容
+        const showAllBtn = document.getElementById('show-all-stickers');
+        if (showAllBtn) {
+            showAllBtn.addEventListener('click', () => {
+                let summaryHtml = '<div class="note-header"><span class="pin">📋</span><h3>所有便签</h3></div><div class="note-body">';
+                for (const [title, content] of Object.entries(stories)) {
+                    summaryHtml += `
+                        <div style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #F0E8DD;">
+                            <div style="font-weight: 600; color: #c19a6b; margin-bottom: 8px;">📌 ${title}</div>
+                            <div style="font-size: 13px; color: #6b6b6b; line-height: 1.5;">${content.replace(/\n/g, '<br>')}</div>
+                        </div>
+                    `;
+                }
+                summaryHtml += '</div><div class="popup-footer"><img src="/images/avatar.jpg" class="popup-avatar" alt="avatar"><div><div class="popup-name">向往的美好花园</div><div class="popup-sub">心之所向的理想居所</div></div></div>';
+                popup.innerHTML = summaryHtml;
+                overlay.classList.add('show');
+            });
+        }
+        
+        // 关闭弹窗
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closePopup();
+        });
+    })();
+    
+    // ========== 二维码交互 ==========
+    (function() {
+        const wechatTrigger = document.getElementById('wechat-trigger');
+        const wechatPopup = document.getElementById('wechat-qr-popup');
+        const mpTrigger = document.getElementById('mp-trigger');
+        const mpPopup = document.getElementById('mp-qr-popup');
+        
+        function showPopup(popup) {
+            if (popup) popup.classList.add('show');
+        }
+        
+        function hidePopup(popup) {
+            if (popup) popup.classList.remove('show');
+        }
+        
+        if (wechatTrigger && wechatPopup) {
+            wechatTrigger.addEventListener('mouseenter', function() {
+                showPopup(wechatPopup);
+            });
+        }
+        
+        if (mpTrigger && mpPopup) {
+            mpTrigger.addEventListener('mouseenter', function() {
+                showPopup(mpPopup);
+            });
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (wechatTrigger && !wechatTrigger.contains(e.target)) {
+                hidePopup(wechatPopup);
+            }
+            if (mpTrigger && !mpTrigger.contains(e.target)) {
+                hidePopup(mpPopup);
+            }
+        });
+        
+        if (wechatPopup) wechatPopup.addEventListener('click', e => e.stopPropagation());
+        if (mpPopup) mpPopup.addEventListener('click', e => e.stopPropagation());
+    })();
+</script>
+
+<!-- 不蒜子访客统计 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

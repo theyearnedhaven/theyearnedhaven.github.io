@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>写给MARK · 家是心中最暖的花园</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F9F6F0; /* 网站主色，关灯背景 */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* ===== 核心容器 ===== */
+        .mark-container {
+            width: 1300px;
+            height: 800px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+
+        /* ===== 关灯状态 ===== */
+        .light-off {
+            width: 100%;
+            height: 100%;
+            background-color: #F9F6F0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .light-off.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* 吊灯轮廓 - 您需要微调top/left值来对齐图片中的吊灯 */
+        .lamp-outline {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        /* 三盏吊灯的细线轮廓 */
+        .lamp-1, .lamp-2, .lamp-3 {
+            position: absolute;
+            background: transparent;
+        }
+
+        /* 第1盏灯 - 左灯（您微调以下三个值：left, top, 以及连线） */
+        .lamp-1 {
+            left: 30px;
+            top: 30px;
+        }
+        .lamp-1 .cord {
+            position: absolute;
+            width: 2px;
+            height: 70px;
+            background: #5A4B38;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .lamp-1 .bulb-outline {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #5A4B38;
+            border-radius: 50%;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
+        }
+
+        /* 第2盏灯 - 中灯 */
+        .lamp-2 {
+            left: 130px;
+            top: 25px;
+        }
+        .lamp-2 .cord {
+            position: absolute;
+            width: 2px;
+            height: 75px;
+            background: #5A4B38;
+            left: 50%;
+        }
+        .lamp-2 .bulb-outline {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            border: 2px solid #5A4B38;
+            border-radius: 50%;
+            top: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 第3盏灯 - 右灯 */
+        .lamp-3 {
+            left: 230px;
+            top: 35px;
+        }
+        .lamp-3 .cord {
+            position: absolute;
+            width: 2px;
+            height: 65px;
+            background: #5A4B38;
+            left: 50%;
+        }
+        .lamp-3 .bulb-outline {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            border: 2px solid #5A4B38;
+            border-radius: 50%;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .light-off-text {
+            font-size: 16px;
+            color: #5A4B38;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* ===== 开灯状态 ===== */
+        .light-on {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/for-mark/images/kitchen-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 10;
+        }
+
+        .light-on.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 场景标题 */
+        .scene-title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 24px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            z-index: 20;
+        }
+
+        .scene-subtitle {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            z-index: 20;
+        }
+
+        /* ===== 冰箱区域 ===== */
+        .fridge {
+            position: absolute;
+            /* ===== 您需要调整以下4个值来对齐图片中的冰箱 ===== */
+            left: 65%;           /* 冰箱左边距 */
+            top: 30%;            /* 冰箱上边距 */
+            width: 25%;          /* 冰箱宽度 */
+            height: 55%;         /* 冰箱高度 */
+            /* ============================================= */
+            z-index: 30;
+            perspective: 1200px;
+        }
+
+        /* 冰箱门 */
+        .fridge-door {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-origin: left center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .fridge-door.open {
+            transform: rotateY(-100deg);
+        }
+
+        /* 冰箱门正面（贴标签的面） */
+        .door-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.05); /* 极淡的蒙层，让标签更明显，不影响背景 */
+            border-radius: 8px;
+        }
+
+        /* 冰箱门背面（内部文字区） */
+        .door-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #FFF8E7;
+            border-radius: 8px;
+            padding: 20px 15px;
+            transform: rotateY(180deg);
+            backface-visibility: hidden;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        /* 冰箱内部文字样式 */
+        .inner-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #5A4B38;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E0D8C0;
+        }
+
+        .memo-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #E0D8C0;
+        }
+
+        .memo-date {
+            font-size: 12px;
+            color: #9e8a7a;
+            margin-bottom: 5px;
+        }
+
+        .memo-content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .full-content {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(158, 138, 122, 0.05);
+            border-radius: 6px;
+        }
+
+        .full-content.show {
+            display: block;
+        }
+
+        .read-more {
+            color: #FFA07A;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        /* ===== 标签样式 ===== */
+        .fridge-tags {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* 让点击穿透到冰箱门，但标签本身可点 */
+        }
+
+        .tag {
+            position: absolute;
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            pointer-events: auto;
+            z-index: 35;
+            border: 1px solid rgba(255,255,255,0.5);
+            transform-origin: center;
+        }
+
+        /* 标签hover效果 */
+        .tag:hover {
+            transform: scale(1.1);
+            z-index: 50;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            filter: brightness(1.02);
+        }
+
+        /* 标签预览文字 */
+        .tag-preview {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: normal;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 60;
+            color: #333;
+            border: 1px solid #f0f0f0;
+        }
+
+        .tag:hover .tag-preview {
+            display: block;
+        }
+
+        /* 标签颜色 */
+        .tag-1 { background: #FFE888; left: 10%; top: 15%; }
+        .tag-2 { background: #FFA07A; left: 35%; top: 25%; }
+        .tag-3 { background: #B0E0E6; left: 15%; top: 45%; }
+        .tag-4 { background: #F8C8DC; left: 45%; top: 60%; }
+        .tag-5 { background: #98FB98; left: 20%; top: 75%; }
+
+        /* 标签微调偏移，增加自然感 */
+        .tag-1 { transform: rotate(-2deg); }
+        .tag-2 { transform: rotate(3deg); }
+        .tag-3 { transform: rotate(-4deg); }
+        .tag-4 { transform: rotate(2deg); }
+        .tag-5 { transform: rotate(-1deg); }
+
+        /* 关闭按钮 */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid rgba(158,138,122,0.3);
+        }
+
+        .close-btn:hover {
+            background: #5A4B38;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* 调试说明（可删除） */
+        .debug-note {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-note">⚠️ 请在`:root`中调整冰箱位置变量以对齐您的图片</div>
+
+    <div class="mark-container">
+        <!-- 关灯状态 -->
+        <div class="light-off" id="lightOff">
+            <div class="lamp-outline" id="lampBtn">
+                <!-- 三盏吊灯轮廓，位置已预设，您可微调.lamp-1/2/3的left/top值 -->
+                <div class="lamp-1">
+                    <div class="cord"></div>
+                    <div class="bulb-outline"></div>
+                </div>
+                <div class="lamp-2">
+                    <div class="cord"></div>
+                    <div class="bulb-outline"></div>
+                </div>
+                <div class="lamp-3">
+                    <div class="cord"></div>
+                    <div class="bulb-outline"></div>
+                </div>
+            </div>
+            <div class="light-off-text">The Yearned Haven · 心归处，是家园</div>
+        </div>
+
+        <!-- 开灯状态（厨房场景） -->
+        <div class="light-on" id="lightOn">
+            <div class="scene-title">写给MARK · 家是心中最暖的花园</div>
+            <div class="scene-subtitle">向往的美好花园，不止草木与庭院 · 更是灯火可亲，家人闲坐，心安即是归处</div>
+
+            <!-- 冰箱 -->
+            <div class="fridge" id="fridge">
+                <div class="fridge-door" id="fridgeDoor">
+                    <!-- 冰箱门正面（贴标签） -->
+                    <div class="door-front">
+                        <div class="fridge-tags">
+                            <div class="tag tag-1" data-preview="不正经育儿：今天又和MARK斗智斗勇">
+                                不正经育儿
+                                <span class="tag-preview">今天又和MARK斗智斗勇</span>
+                            </div>
+                            <div class="tag tag-2" data-preview="父与子：户外骑车他居然等我">
+                                父与子
+                                <span class="tag-preview">户外骑车他居然等我</span>
+                            </div>
+                            <div class="tag tag-3" data-preview="MARK说：13岁不需要唠叨啦">
+                                MARK说
+                                <span class="tag-preview">13岁不需要唠叨啦</span>
+                            </div>
+                            <div class="tag tag-4" data-preview="家里事：深夜偷吃被抓包">
+                                家里事
+                                <span class="tag-preview">深夜偷吃被抓包</span>
+                            </div>
+                            <div class="tag tag-5" data-preview="学校八卦：有人传小纸条">
+                                学校八卦
+                                <span class="tag-preview">有人传小纸条</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 冰箱门背面（内部文字） -->
+                    <div class="door-back">
+                        <div class="inner-title">这里没有说教，只有父与子的日常</div>
+                        
+                        <div class="memo-item">
+                            <div class="memo-date">2026.03.19</div>
+                            <div class="memo-content">
+                                MARK今天放学回来，主动跟我说了数学考了95分...
+                                <span class="read-more" data-target="full1">继续阅读</span>
+                                <div class="full-content" id="full1">
+                                    其实我知道，他偷偷练了一周的错题。13岁的男孩，别扭又可爱，不想让你夸，又想让你知道他的努力。晚上给他煮了他最爱吃的番茄牛腩，没提分数，只聊了聊学校的篮球赛，他说得眉飞色舞。父与子，大抵就是这样，不用多说，都懂。
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="memo-item">
+                            <div class="memo-date">2026.03.18</div>
+                            <div class="memo-content">
+                                不正经育儿实录：今天跟MARK打赌，谁先玩手机谁洗碗...
+                                <span class="read-more" data-target="full2">继续阅读</span>
+                                <div class="full-content" id="full2">
+                                    结果我忍不住刷了5分钟短视频，被他抓个正着。老老实实洗了碗，他在旁边晃悠，还假惺惺地说“老爸下次注意哦”。输得心甘情愿，这种小输赢，比讲一百遍大道理都管用。
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="memo-item">
+                            <div class="memo-date">2026.03.15</div>
+                            <div class="memo-content">
+                                家里事：周末一家人的早餐...
+                                <span class="read-more" data-target="full3">继续阅读</span>
+                                <div class="full-content" id="full3">
+                                    难得MARK早起，说想吃煎饼。我手忙脚乱摊了三个奇形怪状的，他吃得津津有味，还说“老爸做的煎饼最有灵魂”。妈妈在旁边笑。这种时刻，就是家的意义。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 关闭按钮（冰箱右上角） -->
+            <div class="close-btn" id="closeBtn">×</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // 获取DOM元素
+            const lampBtn = document.getElementById('lampBtn');
+            const lightOff = document.getElementById('lightOff');
+            const lightOn = document.getElementById('lightOn');
+            const fridgeDoor = document.getElementById('fridgeDoor');
+            const closeBtn = document.getElementById('closeBtn');
+            const fridge = document.getElementById('fridge');
+
+            // 状态标记
+            let isLightOn = false;
+            let isDoorOpen = false;
+
+            // 1. 点击吊灯开灯
+            lampBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (!isLightOn) {
+                    lightOff.classList.add('hidden');
+                    lightOn.classList.add('active');
+                    isLightOn = true;
+                }
+            });
+
+            // 2. 点击冰箱门空白处开门
+            fridgeDoor.addEventListener('click', function(e) {
+                // 如果点击的是标签，不触发放门
+                if (e.target.closest('.tag')) return;
+                
+                if (!isDoorOpen) {
+                    fridgeDoor.classList.add('open');
+                    isDoorOpen = true;
+                }
+            });
+
+            // 3. 点击关闭按钮 -> 关门 -> 关灯
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // 先关门
+                if (isDoorOpen) {
+                    fridgeDoor.classList.remove('open');
+                    isDoorOpen = false;
+                    
+                    // 关门后延迟一点关灯
+                    setTimeout(() => {
+                        lightOn.classList.remove('active');
+                        lightOff.classList.remove('hidden');
+                        isLightOn = false;
+                    }, 400); // 等待关门动画完成一部分
+                } else {
+                    // 如果门没开，直接关灯
+                    lightOn.classList.remove('active');
+                    lightOff.classList.remove('hidden');
+                    isLightOn = false;
+                }
+            });
+
+            // 4. 点击冰箱外区域关门（点击背景但不包括冰箱）
+            lightOn.addEventListener('click', function(e) {
+                // 如果点击的是冰箱内部或者关闭按钮，不处理
+                if (e.target.closest('.fridge') || e.target.closest('.close-btn')) return;
+                
+                if (isDoorOpen) {
+                    fridgeDoor.classList.remove('open');
+                    isDoorOpen = false;
+                }
+            });
+
+            // 5. 继续阅读功能
+            document.querySelectorAll('.read-more').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const targetId = this.getAttribute('data-target');
+                    const fullContent = document.getElementById(targetId);
+                    
+                    if (fullContent.classList.contains('show')) {
+                        fullContent.classList.remove('show');
+                        this.textContent = '继续阅读';
+                    } else {
+                        fullContent.classList.add('show');
+                        this.textContent = '收起';
+                    }
+                });
+            });
+
+            // 6. 防止点击标签时触发放门
+            document.querySelectorAll('.tag').forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // 这里可以添加点击标签的额外交互，比如打开新页面或弹窗
+                    console.log('点击标签：', this.textContent.trim());
+                });
+            });
+
+            // 7. 键盘ESC关灯（方便调试）
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isLightOn) {
+                    lightOn.classList.remove('active');
+                    lightOff.classList.remove('hidden');
+                    isLightOn = false;
+                    if (isDoorOpen) {
+                        fridgeDoor.classList.remove('open');
+                        isDoorOpen = false;
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
